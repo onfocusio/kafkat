@@ -3,12 +3,12 @@ $:.push File.expand_path('../lib', __FILE__)
 require 'kafkat/version'
 
 Gem::Specification.new do |s|
-  s.name         = 'kafkat'
+  s.name         = 'kafkat-onfocusio'
   s.version      = Kafkat::VERSION
   s.platform     = Gem::Platform::RUBY
-  s.authors      = ["Nelson Gauthier"]
-  s.email        = ['nelson@airbnb.com']
-  s.homepage     = 'https://github.com/airbnb/kafkat'
+  s.authors      = ["Nelson Gauthier", "Nicolas Fouché"]
+  s.email        = ['nelson@airbnb.com', "nfouche@onfocus.io"]
+  s.homepage     = 'https://github.com/onfocusio/kafkat'
   s.summary      = "Simplified command-line administration for Kafka brokers"
   s.description  = s.summary
   s.license      = 'Apache-v2'
