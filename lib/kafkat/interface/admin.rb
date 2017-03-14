@@ -100,6 +100,10 @@ module Kafkat
 
       def run_tool(name, *args)
         path = File.join(kafka_path, "bin/#{name}.sh")
+        # The scripts in the Confluent package does not have .sh extensions
+        if !File.exist? path
+          path = File.join(kafka_path, "bin/#{name}")
+        end
         args += ['--zookeeper', "\"#{zk_path}\""]
         args_string = args.join(' ')
         result = `#{path} #{args_string}`
