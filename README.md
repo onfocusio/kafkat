@@ -31,7 +31,8 @@ gem install kafkat
 {
   "kafka_path": "/srv/kafka/kafka_2.10-0.8.1.1",
   "log_path": "/mnt/kafka-logs",
-  "zk_path": "zk0.foo.ca:2181,zk1.foo.ca:2181,zk2.foo.ca:2181/kafka"
+  "zk_path": "zk0.foo.ca:2181,zk1.foo.ca:2181,zk2.foo.ca:2181/kafka",
+  "json_files_path": "/tmp"
 }
 ```
 
@@ -60,7 +61,8 @@ Here's a list of supported commands:
   shutdown <broker id>                                                Gracefully remove leaderships from a broker (requires JMX).
   topics                                                              Print all topics.
   drain <broker id> [--topic <t>] [--brokers <ids>]                   Reassign partitions from a specific broker to other brokers.
-  
+  verify-reassign reassign_YYYY-MM-DDThh:mm:ssZ.json                  Verify reassignment of partitions.
+  verify-replicas  [--topics] [--broker <id>] [--print-details] [--print-summary] Check if all partitions in a topic have same number of replicas.
 ```
 
 ## Important Note

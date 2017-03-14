@@ -11,6 +11,7 @@ module Kafkat
     attr_reader :kafka_path
     attr_reader :log_path
     attr_reader :zk_path
+    attr_reader :json_files_path
 
     def self.load!
       string = nil
@@ -40,6 +41,10 @@ module Kafkat
       @kafka_path = json['kafka_path']
       @log_path = json['log_path']
       @zk_path = json['zk_path']
+      @json_files_path = json['json_files_path']
+      if !@json_files_path || !File.exist?(@json_files_path)
+        raise ArgumentError, "The directory \"json_files_path\": \"#{@json_files_path}\" does not exit."
+      end
     end
   end
 end

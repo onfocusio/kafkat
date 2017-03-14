@@ -1,4 +1,4 @@
-require 'tempfile'
+require 'time'
 
 module Kafkat
   module Interface
@@ -7,14 +7,16 @@ module Kafkat
 
       attr_reader :kafka_path
       attr_reader :zk_path
+      attr_reader :json_files_path
 
       def initialize(config)
         @kafka_path = config.kafka_path
         @zk_path = config.zk_path
+        @json_files_path = config.json_files_path
       end
 
       def elect_leaders!(partitions)
-        file = Tempfile.new('kafkat-partitions.json')
+        file = File.new File.join(@json_files_path, "elect-leaders_#{Time.now.xmlschema}.json"), "w"
 
         json_partitions = []
         partitions.each do |p|
@@ -28,16 +30,17 @@ module Kafkat
         file.write(JSON.dump(json))
         file.close
 
+        puts "Using JSON file: " + file.path
+
         run_tool(
           'kafka-preferred-replica-election',
             '--path-to-json-file', file.path
         )
-      ensure
-        file.unlink
       end
 
       def reassign!(assignments)
-        file = Tempfile.new('kafkat-partitions.json')
+        file_name = "reassign_#{Time.now.xmlschema}.json"
+        file = File.new File.join(@json_files_path, file_name), "w"
 
         json_partitions = []
         assignments.each do |a|
@@ -56,13 +59,31 @@ module Kafkat
         file.write(JSON.dump(json))
         file.close
 
+        puts "Using JSON file: " + file.path
+        puts "Run this command to check the status: kafkat verify-reassign #{file_name}"
+
         run_tool(
           'kafka-reassign-partitions',
             '--execute',
             '--reassignment-json-file', file.path
         )
-      ensure
-        file.unlink
+      end
+
+      def verify_reassign(file_name)
+        file =
+          if File.exist? file_name
+            File.new file_name
+          else
+            File.new File.join(@json_files_path, file_name)
+          end
+
+        puts "Using JSON file: " + file.path
+
+        run_tool(
+          'kafka-reassign-partitions',
+            '--verify',
+            '--reassignment-json-file', file.path
+        )
       end
 
       def shutdown!(broker_id, options={})
