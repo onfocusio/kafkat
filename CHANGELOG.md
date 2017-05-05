@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## 0.3.2
+
+- [enhancement] updated the `reassign` command to rebalance partitions accross brokers whith the minimum number of partition moves
+
 ## 0.3.1
 
 - [feature] add `verify-reassign` command
