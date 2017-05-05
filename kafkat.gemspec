@@ -6,8 +6,8 @@ Gem::Specification.new do |s|
   s.name         = 'kafkat-onfocusio'
   s.version      = Kafkat::VERSION
   s.platform     = Gem::Platform::RUBY
-  s.authors      = ["Nelson Gauthier", "Nicolas Fouché"]
-  s.email        = ['nelson@airbnb.com', "nfouche@onfocus.io"]
+  s.authors      = ["Nelson Gauthier", "Nicolas Fouché", "Alexandre Fouché"]
+  s.email        = ['nelson@airbnb.com', "nfouche@onfocus.io", "afouche@onfocus.io"]
   s.homepage     = 'https://github.com/onfocusio/kafkat'
   s.summary      = "Simplified command-line administration for Kafka brokers"
   s.description  = s.summary

@@ -3,6 +3,7 @@
 ## 0.3.2
 
 - [enhancement] updated the `reassign` command to rebalance partitions accross brokers whith the minimum number of partition moves
+- [bug] [todo] The migrate function can sometimes fail, because i try to move partitions from the biggest unbalanced node to the lowest unbalanced node, and sometimes there is not enough difference. Instead, i need to move remaining partitions that are already there on the other unbalanced nodes. Nevertheless, if that happens, simply restart the script until the combination fits.
 
 ## 0.3.1
 
